@@ -205,7 +205,15 @@
           gainNode = audioContext.createGain();
 
           const panNode = audioContext.createStereoPanner();
-          panNode.pan.value = currentEar === "Left" ? -1 : 1;
+	  const compressor = audioContext.createDynamicsCompressor();
+          
+	  panNode.pan.value = currentEar === "Left" ? -1 : 1;
+
+	  compressor.threshold.setValueAtTime(-40, audioContext.currentTime);
+          compressor.ratio.setValueAtTime(18, audioContext.currentTime);
+          compressor.attack.setValueAtTime(0, audioContext.currentTime);
+          compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+
 
           oscillator.type = "sine"; 
           oscillator.frequency.setValueAtTime(
