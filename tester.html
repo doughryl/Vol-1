@@ -236,7 +236,7 @@
       }
 
       function convertToGain(volume) {
-        return volume / 1;
+        return Math.pow(10, (volume - 105.2) / 20);
         // yung 24, galing sa volumeStep dati
       }
 
@@ -315,7 +315,7 @@
           currentVolumeElement.textContent = currentVolume + " dB";
 
           if (gainNode) {
-            const volume = Math.pow(10, value / 120); 
+            const volume = Math.pow(10, (value - 105.2) / 20); 
             gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
           }
       }
